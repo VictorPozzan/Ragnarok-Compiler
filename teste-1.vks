@@ -1,0 +1,17 @@
+meioa{
+  allr b;
+	allr m;
+	allr c;
+	b = 5;
+	m = 4;
+	#  exemplo de comparação 
+  # e repetição
+  ef ( b < m){
+	  c =  m - b;
+		stund( c > 0) {
+      c = c - 1;  
+      rita(“Eh menor”); 
+  } ella {
+	  rita(“Nao eh menor”);
+  }
+}
