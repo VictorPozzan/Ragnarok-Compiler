@@ -1,17 +1,13 @@
 meioa{
-  allr b;
-	allr m;
-	allr c;
-	b = 5;
-	m = 4;
-	#  exemplo de comparação 
-  # e repetição
-  ef ( b < m){
-	  c =  m - b;
-		stund( c > 0) {
-      c = c - 1;  
-      rita(“Eh menor”); 
-  } ella {
-	  rita(“Nao eh menor”);
-  }
+	allr abc^7ns
+
 }
+
+se agente achar um erro devemos continuar ou não?
+se considerar a analise com erro considerar a analise da expressão inteira:
+ex: allr abc^7ns
+descarta inteiramente abc^7ns
+ou abc -> ID
+^ é o erro
+7 NUM_INT
+ns ID

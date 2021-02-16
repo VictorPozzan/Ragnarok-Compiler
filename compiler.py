@@ -3,9 +3,11 @@ from lexicalAnalyser import Lexical_Analaser
 reserved_words = ["allr", "fljota", "bref", "aundan", "stund",
                   "ef", "ella", "meioa", "lesa", "rita", "saor", "flar"]
 
-symbols = ["{", "}", "(", ")", ";", "#", "="]
+symbols = ["{", "}", "(", ")", ";"]
 
-operators = ["+", "-", "*", "/", "&", "|", "!", "<", ">", "!=", "=="]
+operators = ["+", "-", "*", "/", "&", "|", "!", "<", ">", "!=", "==", "="]
+
+useless = ["\n", "\t", "#", " "]
 
 
 def main():
@@ -16,10 +18,11 @@ def main():
 
     content_program = program.readlines()
     lexical = Lexical_Analaser(
-        content_program, reserved_words, symbols, operators)
+        content_program, reserved_words, symbols, operators, useless)
 
-    lexical.analyse()
+    list_token = lexical.analyse()
 
+    print(list_token)
     program.close()
 
 
