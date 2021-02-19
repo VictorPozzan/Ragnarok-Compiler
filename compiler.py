@@ -1,7 +1,6 @@
 from lexicalAnalyser import Lexical_Analaser
 
-reserved_words = ["allr", "fljota", "bref", "aundan", "stund",
-                  "ef", "ella", "meioa", "lesa", "rita", "saor", "flar"]
+reserved_words = ["allr", "fljota", "aundan", "stund", "ef", "ella", "meioa", "lesa", "rita", "saor", "flar"]
 
 symbols = ["{", "}", "(", ")", ";"]
 
@@ -11,7 +10,7 @@ useless = ["\n", "\t", "#", " "]
 
 
 def main():
-    program = open("./teste-1.vks", "r")
+    program = open("./teste-2.vks", "r")
 
     print("Welcome to the Ragnarök compile for the language Vikings")
     print("Init compile the file", program.name)

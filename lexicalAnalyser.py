@@ -1,6 +1,6 @@
 
 import re
-
+from terminals import values
 
 class Lexical_Analaser:
     tokens = []  # lista de tokens
@@ -131,34 +131,3 @@ class Lexical_Analaser:
         print("THERE IS A PROBLEM IN ROW: ", row, " COl: ", col)
 
 
-values = {
-    "meioa": "{MAIN}",
-    "allr": "{INT}",
-    "fljota": "{FLOAT}",
-    "aundan": "{BOOL}",
-    "bref": "{CHAR}",
-    "ef": "{IF}",
-    "ella": "{ELSE}",
-    "stund": "{WHILE}",
-    "saor": "{TRUE}",
-    "flar": "{FALSE}",
-    "rita": "{PRINT}",
-    "lesa": "{SCAN}",
-    "=": "{=}",
-    "+": "{+}",
-    "-": "{-}",
-    "*": "{*}",
-    "/": "{/}",
-    "!": "{NOT}",
-    "&": "{AND}",
-    "|": "{OR}",
-    "==": "{EQUAL}",
-    "<": "{LESS}",
-    ">": "{MORE}",
-    "!=": "{DIFF}",
-    ";": "{;}",
-    "{": "{{}",
-    "}": "{}}",
-    "(": "{(}",
-    ")": "{)}",
-}

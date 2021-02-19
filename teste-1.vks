@@ -1,13 +1,5 @@
 meioa{
 	allr abc^7ns
-
+	lesa(m);
 }
 
-se agente achar um erro devemos continuar ou não?
-se considerar a analise com erro considerar a analise da expressão inteira:
-ex: allr abc^7ns
-descarta inteiramente abc^7ns
-ou abc -> ID
-^ é o erro
-7 NUM_INT
-ns ID
