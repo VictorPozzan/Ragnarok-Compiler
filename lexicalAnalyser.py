@@ -1,4 +1,3 @@
-
 import re
 from terminals import values
 
@@ -95,7 +94,6 @@ class Lexical_Analaser:
             word.append(line_character[i])
             i += 1
             col += 1
-
         word_analysing = ''.join(word)
         return word_analysing, col
 
