@@ -28,6 +28,6 @@ index_ter = {
     "NOT":26,	
     "NUM_INT":27,	
     "NUM_FLOAT":28,	
-    "FALSO"	:29 ,
-    "VERDADEIRO":30,
+    "FALSE"	:29 ,
+    "TRUE":30,
 }

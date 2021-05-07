@@ -20,33 +20,54 @@ class Syntatic_Analyser :
         #var = "program"
         #print(getattr(table_production, var))
         
-        for i in range(20):
-            print("peração:", i)
+        # falar sobre o while
+        # sobre o if  if last_element_pilha in index_ter: 
+        
+        
+        # FEITO => modifcar o for while pilha == $ e entrada == $
+        # FEITO => if #fazer a verificação se é um teminal 
+        # não desempilhar criar um contador pra sentença toda vez que cair aqui dar um ++ no contador
+        # FEITO => tratamento de erro 
+        
+        #        
+        count = 0
+        
+        while self.pilha[-1] != '$' and self.entrada[0] != '$':
+            print("\n")
             print("pilha:", self.pilha)
             print("entrada:", self.entrada)
             last_element_pilha = self.pilha[-1]
-            if(last_element_pilha == self.entrada[0]): #ver se é um terminal
-                print("Achei um terminal:", last_element_pilha)
-                self.pilha.pop()
-                self.entrada.pop(0)
-                
+           
+            if last_element_pilha in index_ter: #fazer a verificação se é um teminal 
+                if(last_element_pilha == self.entrada[0]): #se o topo da pilha é igual ao top da entrada
+                    print("Achei um terminal:", last_element_pilha)
+                    self.pilha.pop()
+                    self.entrada.pop(0) #não desempilhar criar um contador pra sentença toda vez que cair aqui dar um ++ no contador    
+                else:
+                    print("Type 1: ERRO era esperado um", self.pilha[-1])
+                    self.pilha.pop()          
             else:# encontra-se na pilha um não terminal
-                print("Não terminal")
-                index = index_ter[self.entrada[0]] #pegar o valor em index_terminals
-                production = getattr(table_production, last_element_pilha)#acessar o objeto na lista
+                print("Não terminal") 
+                index = index_ter[self.entrada[0]] #pegar o valor em index_terminals 
+                
+
+                production = getattr(table_production, last_element_pilha)
                 print("production[index]",production[index])
                 print("len:", len(production[index]))
                 production = tuple(reversed((production[index]))) #inverte a tupla ("ID", "INT") -> ("INT", "ID")
-
-                self.pilha.pop();
-                self.insertInPilha(production)
                 
-                print("-1", self.pilha[-1])
+                if production[0] == 'e':
+                    print("Type 2: ERRO era esperado um", self.pilha[-1])
+                    self.pilha.pop();
+                else:
+                    self.pilha.pop();
+                    self.insertInPilha(production)
+              
                 if self.pilha[-1] == ' ':
-                    print("encontrei um vazio")
                     self.pilha.pop()
-                    print("tirei o vazio:", self.pilha)
                 
+                
+        print("Análise Sintatica Compilada :)")
         #FITA-lista_tokens: MAIN { }
          #PILHA: program 
        
@@ -74,6 +95,7 @@ class Syntatic_Analyser :
 
 
 class Nao_Terminais :
+    #modifica os nome input -> put e else -> els
     program = [("main",),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e")]			
     main = [ ("MAIN", "{", "possible_expr", "}"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e") ]		
     possible_expr = [ ("e"),("e"), (" ",), ("expr", "possible_expr"),("e"),("expr", "possible_expr"),("expr", "possible_expr"),("expr", "possible_expr"),("expr", "possible_expr"),("e"),("e"),("expr", "possible_expr"),("expr", "possible_expr"),("expr", "possible_expr"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e") ]
@@ -84,7 +106,7 @@ class Nao_Terminais :
     put = [ ("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("SCAN", "(", "ID", ")", ";"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e") ]		
     output = [ ("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("PRINT", "(", "ID", ")", ";"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e")	]	
     de = [ ("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("IF", "(", "stmt", ")", "de_expr", "caso_else"),("WHILE", "(", "stmt", ")", "de_expr"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e") ]
-    caso_else = [ ("e"),("e"),(" ",),(" ",),("e"),(" ",),(" ",),(" ",),(" ",),("e"),("e"),(" ",),(" ",),(" ",),("else",),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e") ]
+    caso_else = [ ("e"),("e"),(" ",),(" ",),("e"),(" ",),(" ",),(" ",),(" ",),("e"),("e"),(" ",),(" ",),(" ",),("els",),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e") ]
     els = [ ("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("ELSE", "de_expr"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e") ]
     de_expr = [ ("e"),("{", "possible_expr", "}"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e") ]
     stmt = [ ("e"),("e"),("e"),("valor", "op_relacional", "valor", "stmt2"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("op_logico_not", "valor"),("valor", "op_relacional", "valor", "stmt2"),("valor", "op_relacional", "valor", "stmt2"),("valor", "op_relacional", "valor", "stmt2"),("valor", "op_relacional", "valor", "stmt2")	]

@@ -11,7 +11,7 @@ useless = ["\n", "\t", "#", " "]
 
 
 def main():
-    program = open("./teste-1.vks", "r")
+    program = open("./teste-2.vks", "r")
     print("Init compile the file", program.name)
     content_program = program.readlines()
 
