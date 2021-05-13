@@ -11,20 +11,20 @@ meioa{
     # e repetição
     
     ef (b > m){
-        maior_menor = saor 
+        maior_menor = saor;
         stund(b < m){
-            m = m - 1
-            i = i + 1
+            m = m - 1;
+            i = i + 1;
         }
     } ella {
-        maior_menor = flar
+        maior_menor = flar;
         stund(b < m){
-            m = m - 1
-            i = i + 1
+            m = m - 1;
+            i = i + 1;
         }
     }
 
-    ef(maior_menor){
+    ef(maior_menor == saor){
         rita(b);
         rita(i);
     } ella {

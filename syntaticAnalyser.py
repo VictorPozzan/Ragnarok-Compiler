@@ -9,54 +9,38 @@ class Syntatic_Analyser :
 
     def analyse(self):
         print("começou a Análise Sintática")
+        print('\n')
         print(self.entrada)
         
         table_production = Nao_Terminais()
         self.pilha.append("$")
         self.pilha.append("program")
 
-        #print(self.pilha[-1])
-        #pilha.pop();
-        #var = "program"
-        #print(getattr(table_production, var))
-        
-        # falar sobre o while
-        # sobre o if  if last_element_pilha in index_ter: 
-        
-        
-        # FEITO => modifcar o for while pilha == $ e entrada == $
-        # FEITO => if #fazer a verificação se é um teminal 
-        # não desempilhar criar um contador pra sentença toda vez que cair aqui dar um ++ no contador
-        # FEITO => tratamento de erro 
-        
-        #        
-        count = 0
         
         while self.pilha[-1] != '$' and self.entrada[0] != '$':
-            print("\n")
-            print("pilha:", self.pilha)
-            print("entrada:", self.entrada)
+            #print("\n")
+            #print("pilha:", self.pilha)
+            #print("entrada:", self.entrada)
             last_element_pilha = self.pilha[-1]
            
             if last_element_pilha in index_ter: #fazer a verificação se é um teminal 
                 if(last_element_pilha == self.entrada[0]): #se o topo da pilha é igual ao top da entrada
-                    print("Achei um terminal:", last_element_pilha)
                     self.pilha.pop()
                     self.entrada.pop(0) #não desempilhar criar um contador pra sentença toda vez que cair aqui dar um ++ no contador    
                 else:
                     print("Type 1: ERRO era esperado um", self.pilha[-1])
                     self.pilha.pop()          
             else:# encontra-se na pilha um não terminal
-                print("Não terminal") 
                 index = index_ter[self.entrada[0]] #pegar o valor em index_terminals 
                 
 
                 production = getattr(table_production, last_element_pilha)
-                print("production[index]",production[index])
-                print("len:", len(production[index]))
+                #print("production[index]",production[index])
                 production = tuple(reversed((production[index]))) #inverte a tupla ("ID", "INT") -> ("INT", "ID")
                 
                 if production[0] == 'e':
+                    print("pilha:", self.pilha)
+                    print("entrada:", self.entrada)
                     print("Type 2: ERRO era esperado um", self.pilha[-1])
                     self.pilha.pop();
                 else:
@@ -68,11 +52,7 @@ class Syntatic_Analyser :
                 
                 
         print("Análise Sintatica Compilada :)")
-        #FITA-lista_tokens: MAIN { }
-         #PILHA: program 
-       
-       
-        #while self.list_tokens == '$':
+
             
     def insertInPilha(self, production):
         for prod in production:
@@ -119,36 +99,3 @@ class Nao_Terminais :
     op_logico_and_or = [ ("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("AND",),("OR",),("e"),("e"),("e"),("e"),("e") ]
     op_logico_not = [ ("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("NOT",),("e"),("e"),("e"),("e") ]
     valor = [ ("e"),("e"),("e"),("ID",),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("e"),("NUM_INT",),("NUM_FLOAT",),("FALSE",),("TRUE",) ]
-
-
-
-
-
-
-
-"""
-"expr", "dv", "tipo", "inout", "input", "output", "de", "caso_else", "else"
-                           "de_expr", "stmt", "stmt2", "atribuicao", "tipo_atribuicao", "possible_expr_atrib", "op_aritmetico",
-                           "op_relacional", "op_logico_and_or", "op_logico_not", "valor"}
-{
-    id: 0
-    v: 1
-    ^: 2
-    ¬: 3
-    $: 4
-}
-
-
-lista_nao_terminais = [E, E', T, T', F]
-
-E = [T E', erro, erro, T E', erro]
-E' = []
-
-
-
-lista_tokens = id v id ^
-
-
-pilha = E(0)
-pilha = TE'"""
-
