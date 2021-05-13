@@ -17,7 +17,7 @@ class Lexical_Analaser:
         self.useless = useless
 
     def analyse(self):
-        print("Init analyse the lexical part")
+        print("Init Lexical Analyser")
         # print(self.program[0])
 
         row = 0
@@ -85,7 +85,9 @@ class Lexical_Analaser:
                 else:  # erro
                     self.lexical_error(row, col)
                     col += 1
-
+     
+        print('\x1b[6;30;42m',"Compiled Lexical Analyser :)", '\x1b[0m')
+        
         return self.tokens
 
     def word_analyse(self, line_character, i, col):
@@ -126,6 +128,6 @@ class Lexical_Analaser:
             return "{NUM_INT}", number_analysing, col
 
     def lexical_error(self, row, col):
-        print("THERE IS A PROBLEM IN ROW: ", row, " COl: ", col)
+        print('\x1b[1;31;40m', "THERE IS A PROBLEM IN ROW: ", row, " COl: ", col, '\x1b[0m')
 
 

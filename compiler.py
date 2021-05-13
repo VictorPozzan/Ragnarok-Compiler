@@ -19,7 +19,7 @@ def main():
     lexical = Lexical_Analaser(
         content_program, reserved_words, symbols, operators, useless)
     list_token = lexical.analyse()
-    print(list_token)
+    #print(list_token)
     program.close()
 
     #Analisador Sintático

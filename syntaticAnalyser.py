@@ -1,5 +1,7 @@
 from index_terminals import index_ter
 class Syntatic_Analyser :
+    FAIL = '\033[91m',
+    ENDC = '\033[0m',
     entrada = []
     pilha = [] 
     tabela = []
@@ -9,7 +11,8 @@ class Syntatic_Analyser :
         self.entrada, self.row = self.treat_list_tokens(tokens)
 
     def analyse(self):
-        print("começou a Análise Sintática")
+        print('\n')
+        print("Init Syntatical Analyser")
         #print('\n')
         #print(self.entrada)
         
@@ -17,7 +20,7 @@ class Syntatic_Analyser :
         self.pilha.append("$")
         self.pilha.append("program")
 
-        last_token = "era esperado a palavra meioa"
+        last_token = 'was expected the word "meioa"'
         
         while self.pilha[-1] != '$' and self.entrada[0] != '$':
             #print("\n")
@@ -28,11 +31,11 @@ class Syntatic_Analyser :
             if last_element_pilha in index_ter: #fazer a verificação se é um teminal 
                 if(last_element_pilha == self.entrada[0]): #se o topo da pilha é igual ao top da entrada
                     self.pilha.pop()
-                    last_token = " depois de: " + str(self.entrada[0])
+                    last_token = " after: " + str(self.entrada[0])
                     self.entrada.pop(0) #não desempilhar criar um contador pra sentença toda vez que cair aqui dar um ++ no contador    
                     self.row.pop(0)
                 else:
-                    print("Type 1: ERRO era esperado um", self.pilha[-1], " na linha:", self.row[0], last_token)
+                    print('\x1b[1;37;41m', "Type 1: ERROR was expected a ", self.pilha[-1] , " on line:", self.row[0], last_token, '\x1b[0m')
                     self.pilha.pop()          
             else:# encontra-se na pilha um não terminal
                 index = index_ter[self.entrada[0]] #pegar o valor em index_terminals 
@@ -43,7 +46,7 @@ class Syntatic_Analyser :
                 production = tuple(reversed((production[index]))) #inverte a tupla ("ID", "INT") -> ("INT", "ID")
                 
                 if production[0] == 'e':
-                    print("Type 2: ERRO era esperado um", self.pilha[-1], " na linha:", self.row[0])
+                    print('\x1b[1;37;41m', "Type 2: ERROR was expected a ", self.pilha[-1], " on line:", self.row[0], '\x1b[0m')
                     self.pilha.pop();
                 else:
                     self.pilha.pop();
@@ -51,9 +54,8 @@ class Syntatic_Analyser :
               
                 if self.pilha[-1] == ' ':
                     self.pilha.pop()
-                
-                
-        print("Análise Sintatica Compilada :)")
+                    
+        print('\x1b[6;30;42m',"Compiled Syntatical Analyser :)", '\x1b[0m')
 
             
     def insertInPilha(self, production):
