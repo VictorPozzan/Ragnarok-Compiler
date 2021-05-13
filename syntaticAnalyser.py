@@ -3,19 +3,21 @@ class Syntatic_Analyser :
     entrada = []
     pilha = [] 
     tabela = []
+    row = []
 
     def __init__(self, tokens):
-        self.entrada = self.treat_list_tokens(tokens)
+        self.entrada, self.row = self.treat_list_tokens(tokens)
 
     def analyse(self):
         print("começou a Análise Sintática")
-        print('\n')
-        print(self.entrada)
+        #print('\n')
+        #print(self.entrada)
         
         table_production = Nao_Terminais()
         self.pilha.append("$")
         self.pilha.append("program")
 
+        last_token = "era esperado a palavra meioa"
         
         while self.pilha[-1] != '$' and self.entrada[0] != '$':
             #print("\n")
@@ -26,9 +28,11 @@ class Syntatic_Analyser :
             if last_element_pilha in index_ter: #fazer a verificação se é um teminal 
                 if(last_element_pilha == self.entrada[0]): #se o topo da pilha é igual ao top da entrada
                     self.pilha.pop()
+                    last_token = " depois de: " + str(self.entrada[0])
                     self.entrada.pop(0) #não desempilhar criar um contador pra sentença toda vez que cair aqui dar um ++ no contador    
+                    self.row.pop(0)
                 else:
-                    print("Type 1: ERRO era esperado um", self.pilha[-1])
+                    print("Type 1: ERRO era esperado um", self.pilha[-1], " na linha:", self.row[0], last_token)
                     self.pilha.pop()          
             else:# encontra-se na pilha um não terminal
                 index = index_ter[self.entrada[0]] #pegar o valor em index_terminals 
@@ -39,9 +43,7 @@ class Syntatic_Analyser :
                 production = tuple(reversed((production[index]))) #inverte a tupla ("ID", "INT") -> ("INT", "ID")
                 
                 if production[0] == 'e':
-                    print("pilha:", self.pilha)
-                    print("entrada:", self.entrada)
-                    print("Type 2: ERRO era esperado um", self.pilha[-1])
+                    print("Type 2: ERRO era esperado um", self.pilha[-1], " na linha:", self.row[0])
                     self.pilha.pop();
                 else:
                     self.pilha.pop();
@@ -62,16 +64,18 @@ class Syntatic_Analyser :
     
     def treat_list_tokens(self, tokens):
         lst_tokens = []
+        lst_row = []
         terminal = ''
 
         for element in tokens:
             terminal = ''
+            lst_row.append(element[2])
             terminal = element[0][1:] #remove o primeiro caracter
             terminal = terminal[:-1] #remove o ultimo caracter
             lst_tokens.append(terminal)            
         
         lst_tokens.append('$') #adiciona o simbolo final da cadeia de produção
-        return lst_tokens
+        return lst_tokens, lst_row
 
 
 class Nao_Terminais :
