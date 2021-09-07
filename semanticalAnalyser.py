@@ -11,10 +11,12 @@ class Semantic_Analyser:
     
     def analyse(self):
         print("init semantic analyser")
+        #construct the variable table
         self.construct_variable_table()
         print("------")
         print(self.list_var)
         #verificar variaveis inuteis
+        self.useless_var()
         #verificar atribuicoes
         #verificar condicoes de if
         #verificar condicoes de while
@@ -35,13 +37,19 @@ class Semantic_Analyser:
                     
                 exists = list(filter(lambda x:next_token[1] in x, self.list_var)) 
                 if len(exists) > 0:
-                    errormessage =  "variavel "+ "'" + next_token[1] +"'"+ " já foi declarada"
+                    errormessage =  "variavel " + "'" + next_token[1] +"'"+ " já foi declarada"
                     self.printErro( errormessage,  next_token[2])
-                
-                #get the name of this var
-
-                #ex: struct of tuple lis_var (type, value, row, id_structure)
-                self.list_var.append((token[0], next_token[1], token[2], self.list_count_id[-1]))
+                else:
+                    #ex: struct of tuple lis_var (type, value, row, id_structure)
+                    self.list_var.append((token[0], next_token[1], token[2], self.list_count_id[-1]))
     
-    def printErro(self, error, row):
-        print('\x1b[1;37;41m', error, " erro na linha ", row, '\x1b[0m')
+    def useless_var(self):
+        for i, token in enumerate(self.list_var):
+            name_var = token[1]
+            useless = list(filter(lambda x:name_var in x, self.tokens))
+            if len(useless) == 1:
+                errormessage = "variavel" + "'" + name_var + "'" + "foi declarada mas nunca utilizada" 
+                self.printErro(errormessage, token[2], '\x1b[1;37;33m')
+
+    def printErro(self, error, row, color_one = '\x1b[1;37;41m', color_two = '\x1b[0m'):
+        print(color_one, error, "       problema na linha ", row, color_two)
