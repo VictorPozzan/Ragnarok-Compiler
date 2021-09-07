@@ -1,0 +1,26 @@
+meioa {
+	allr a;
+    allr b;
+	fljota c;
+	b = saor;
+	aundan d;
+    i = 0;
+
+    ef (b > a){
+        aundan y;
+        stund(b < a){
+            aundan z;
+            a = a + 1;
+        }
+        fljota e;
+    } ella {
+        allr f;
+        stund(b < a){
+            allr g;
+            a = a + 1;
+        }
+        allr h;
+    }
+    allr h;
+
+}

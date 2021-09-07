@@ -2,11 +2,13 @@ meioa {
 	allr b;
     allr i;
 	fljota m;
-	b = 5;
+	b = saor;
 	aundan b_maior;
     i = 0;
     lesa(m);
-
+    m = b/4;
+    m = saor;
+    m = 0.0;
 	#  exemplo de comparação 
     # e repetição
     

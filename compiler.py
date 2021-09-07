@@ -1,5 +1,6 @@
 from lexicalAnalyser import Lexical_Analaser
 from syntaticAnalyser import Syntatic_Analyser
+from semanticalAnalyser import Semantic_Analyser
 
 reserved_words = ["allr", "fljota", "aundan", "stund", "ef", "ella", "meioa", "lesa", "rita", "saor", "flar"]
 
@@ -11,7 +12,7 @@ useless = ["\n", "\t", "#", " "]
 
 
 def main():
-    program = open("./teste-2.vks", "r")
+    program = open("./teste-3.vks", "r")
     print("Init compile the file", program.name)
     content_program = program.readlines()
 
@@ -26,6 +27,9 @@ def main():
     syntatic = Syntatic_Analyser(list_token)
     syntatic.analyse()
 
+    #Analisador Semantico
+    semantic = Semantic_Analyser(list_token)
+    semantic.analyse()
 
 if __name__ == "__main__":
     print("Welcome to the Ragnarök compile for the language Vikings")
