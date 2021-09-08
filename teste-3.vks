@@ -12,7 +12,7 @@ meioa {
         aundan y;
         stund(b < a){
             aundan z;
-            a = 1.1 + a;
+            a = 1 + z;
             fljota e;
         }
         e = a + b
@@ -21,7 +21,7 @@ meioa {
         y = saor;
         stund(b < a){
             allr g;
-            a = a + 1;
+            a = a + z;
         }
         allr h;
     }

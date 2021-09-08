@@ -86,7 +86,8 @@ class Semantic_Analyser:
 
                         else:
                             self.verify_attributor(token_receiver, token_attributor)
-                            
+                            second_token_attributor =  self.tokens_deep[i + 3]
+                            self.verify_attributor(token_receiver, second_token_attributor)
                         
                         #se os identificadores foram declarados previamente 
                         #o id que vai receber é do mesmo tipo dos identificadores do outro lado
@@ -96,15 +97,13 @@ class Semantic_Analyser:
                 else:
                     errormessage = "variavel" + "'" + token_receiver[1] + "'" + "não foi declarada" 
                     self.printErro(errormessage, token[2])
-                    
-                    # ate encontar o {;} 
-                        #se os identificadores foram declarados previamente 
-                        #o id que vai receber é do mesmo tipo dos identificadores do outro lado
+
 
 
     def verify_type(self, token_receiver, token_attributor):
         if token_attributor[0] == "{ID}":
-            type_attributor = list(filter(lambda x:token_receiver[1] in x, self.list_var))
+            type_var = list(filter(lambda x:token_attributor[1] in x, self.list_var))
+            type_attributor = type_var[0]
         elif token_attributor[0] == "{NUM_INT}":
             type_attributor = [('{INT}')]
         elif token_attributor[0] == "{NUM_FLOAT}":
@@ -115,7 +114,7 @@ class Semantic_Analyser:
             type_attributor = [token_attributor[0]]
 
         type_receiver = list(filter(lambda x:token_receiver[1] in x, self.list_var))
-        if type_receiver[0][0] == type_attributor[0][0]:
+        if type_receiver[0][0] == type_attributor[0]:
             return
         else:
             print("ERRO VARIAVEIS NAO SAO DO MESMO TIPO, ERA ESPERADO", type_receiver[0][0],  "E RECEBEMOS",  type_attributor[0], "linha", token_attributor[2])
@@ -128,7 +127,8 @@ class Semantic_Analyser:
                 if token_attributor[2] >= exists_id_atributor[0][2] and exists_id_atributor[0][3] in token_attributor[4]:
                     self.verify_type(token_receiver, token_attributor)
                 else:
-                    print("ERRROOO variavel utilizada fora de contexto", exists_id_atributor[1])
+
+                    print("ERRROOO variavel utilizada fora de contexto", exists_id_atributor[0][1])
             else:
                 print("ERRROOO id não declarado", exists_id_atributor[1])    
         else: 
