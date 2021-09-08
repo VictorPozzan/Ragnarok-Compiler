@@ -11,8 +11,9 @@ meioa {
         stund(b < a){
             aundan z;
             a = a + 1;
+            fljota e;
         }
-        fljota e;
+        e = a + b
     } ella {
         allr f;
         stund(b < a){

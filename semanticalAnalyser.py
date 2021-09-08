@@ -69,15 +69,17 @@ class Semantic_Analyser:
 
 
     def verify_assignments(self):
-        for i, token in enumerate(self.tokens):
+        for i, token in enumerate(self.tokens_deep):
             if token[0] == '{=}':
                 #verificar se o id que recebe foi declarado previamente
-                token_receiver = self.tokens[i - 1]
+                token_receiver = self.tokens_deep[i - 1]
                 exists = list(filter(lambda x:token_receiver[1] in x, self.list_var))
                 print('exists', exists)
-                if len(exits) == 1:
-                    if token_receiver == []:
+                if len(exists) == 1:
+                    if token_receiver[2] >= exists[0][2] and token_receiver[3] >= exists[0][3]:
                         print("next step")
+                    else: 
+                        print("variavel utilizada fora de contexto")
                 else:
                     errormessage = "variavel" + "'" + token_receiver[1] + "'" + "não foi declarada" 
                     self.printErro(errormessage, token[2])
