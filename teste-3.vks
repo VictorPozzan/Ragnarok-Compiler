@@ -8,23 +8,25 @@ meioa {
     c = 1;
     c = 1.1;
     b = a;
-    ef (b > a){
+    ef (a > 1){
         aundan y;
-        stund(b < a){
+        stund(!z){
             aundan z;
             a = 1 + z;
             fljota e;
         }
-        e = a + b
+        e = a + b;
     } ella {
         allr f;
         y = saor;
-        stund(b < a){
+        stund(g < 0 & g == f){
             allr g;
             a = a + z;
         }
         allr h;
     }
     allr h;
+    ef(!y){
 
+    }
 }
