@@ -5,17 +5,20 @@ meioa {
 	b = saor;
 	aundan d;
     i = 0;
-
+    c = 1;
+    c = 1.1;
+    b = a;
     ef (b > a){
         aundan y;
         stund(b < a){
             aundan z;
-            a = a + 1;
+            a = 1.1 + a;
             fljota e;
         }
         e = a + b
     } ella {
         allr f;
+        y = saor;
         stund(b < a){
             allr g;
             a = a + 1;
