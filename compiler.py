@@ -33,8 +33,8 @@ def main():
     errors, tokens = semantic.analyse()
 
     #if errors == 0:
-    ast = AbstractSintaxTree(tokens)
-    ast.execute()
+    #ast = AbstractSintaxTree(tokens)
+    #ast.execute()
     #else: 
     #    print("A AST não é infelizmente à ", errors, "erros a serem tratados ainda")
 

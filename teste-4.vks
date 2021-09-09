@@ -1,11 +1,11 @@
 meioa {
 	allr a;
-
-    ef (a > 1){
+    allr a;
+    ef (c == a){
         aundan y;
         allr t;
+        t = d;
     }
-
     fljota b; 
 }
 

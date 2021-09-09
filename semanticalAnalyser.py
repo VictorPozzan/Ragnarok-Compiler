@@ -21,13 +21,10 @@ class Semantic_Analyser:
         #verificar variaveis inuteis
         self.useless_var()
 
-        #print("------")
-        #print(self.tokens_deep)
         #verificar atribuicoes
         self.verify_assignments()
         
-        #verificar condicoes de if
-        #verificar condicoes de while
+        #verificar condicoes de if e verificar condicoes de while
         self.verify_statements()
 
         return self.erro, self.tokens_deep
@@ -96,27 +93,37 @@ class Semantic_Analyser:
                         #se os identificadores foram declarados previamente 
                         #o id que vai receber é do mesmo tipo dos identificadores do outro lado
 
-                    else: 
-                        print("ERRROOO variavel utilizada fora de contexto", token_receiver[1])
+                    else:
+                        errormessage =  "variavel '" + token_receiver[1] + "' utilizada fora de contexto"
+                        self.printErro( errormessage,  token_receiver[2])
                 else:
-                    errormessage = "variavel" + "'" + token_receiver[1] + "'" + "não foi declarada" 
+                    errormessage = "variavel" + "'" + token_receiver[1] + "'" + " não foi declarada" 
                     self.printErro(errormessage, token[2])
 
 
     def verify_type(self, token_receiver, token_attributor):
+        flag = False
         type_attributor = self.get_type_token(token_attributor)
 
         if token_receiver[0] == '{ID}':
             exists = list(filter(lambda x:token_receiver[1] in x, self.list_var))
-            type_receiver = exists[0][0]
+            if len(exists) == 1:
+                flag = True
+                type_receiver = exists[0][0]
+            else:
+                errormessage =  "variavel '"+ token_receiver[1] + "' inexistente" 
+                self.printErro( errormessage,  token_receiver[2])
+
         else:
             receiver = self.get_type_token(token_receiver)
             type_receiver = receiver[0]
 
-        if type_receiver == type_attributor[0]:
-            return
-        else:
-            print("ERRO VARIAVEIS NAO SAO DO MESMO TIPO, ERA ESPERADO", type_receiver,  "E RECEBEMOS",  type_attributor[0], "linha", token_attributor[2])
+        if flag == True:
+            if type_receiver == type_attributor[0]:
+                return
+            else:
+                errormessage =  "variaveis incompativeis, entre '"+ type_receiver + "' e '" + type_attributor[0] 
+                self.printErro( errormessage,  token_attributor[2])
 
     def get_type_token(self, token):
         if token[0] == "{ID}":
@@ -141,36 +148,35 @@ class Semantic_Analyser:
                 if token_attributor[2] >= exists_id_atributor[0][2] and exists_id_atributor[0][3] in token_attributor[4]:
                     self.verify_type(token_receiver, token_attributor)
                 else:
-
-                    print("ERRROOO variavel utilizada fora de contexto", exists_id_atributor[0][1])
+                    errormessage =  "variavel utilizada fora de contexto '" + exists_id_atributor[0][1] 
+                    self.printErro( errormessage,  token_receiver[2])
             else:
-                print("ERRROOO id não declarado", exists_id_atributor[1])    
+                errormessage =  "variavel '" + token_attributor[1] + "' não declarada"  
+                self.printErro( errormessage,  token_attributor[2]) 
         else: 
             self.verify_type(token_receiver, token_attributor)
     
 
     def verify_statements(self):
-        print()
-        print()
         for i, token in enumerate(self.tokens_deep):
             if token[0] == '{IF}' or token[0] ==  '{WHILE}':
                 token_one = self.tokens_deep[i + 2]
                 self.verify_scope_id(token_one)
                 if token_one[0] == '{NOT}':
-                    print("stmt do not") 
                     token_two = self.tokens_deep[i + 3]
                     if token_two[0] == '{ID}':
                         self.verify_scope_id(token_two)
                         type_token = self.get_type_token(token_two)
                         if type_token[0] != '{BOOL}':
-                            print("ERRRRRRRRRROOOOO  era esperado um ID do tipo boolean    linha", token_two[2] )
+                            errormessage =  "esperado uma variavel tipo booleana" 
+                            self.printErro( errormessage,  token_two[2])
                     else:
-                        print("ERRRRRRRRRROOOOO  era esperado um ID do tipo boolean    linha", token_two[2] )
+                        errormessage =  "esperado uma variavel tipo booleana" 
+                        self.printErro( errormessage,  token_two[2])
                 else:
                     #se é um ID ou um NUM_INT, NUM_FLOAT, FALSE, ou TRUE
                     token_two = self.tokens_deep[i + 4]
                     self.verify_scope_id(token_two)
-                    print("é um ",token[0], "os tokens são:", token_one, token_two)
                     self.verify_attributor(token_one, token_two)
                     #verificar
                     token_exists_op_logico = self.tokens_deep[i + 5]
@@ -189,14 +195,17 @@ class Semantic_Analyser:
                 if token[2] >= exists_id_atributor[0][2] and exists_id_atributor[0][3] in token[4]:
                     return True
                 else:
-                    print("ERRROOO variavel utilizada fora de contexto", exists_id_atributor[0][1])
+                    errormessage =  "variavel '" + exists_id_atributor[0][1] + " ' utilizada fora de contexto" 
+                    self.printErro( errormessage,  exists_id_atributor[0][2])
+                    #print("ERRROOO variavel utilizada fora de contexto", exists_id_atributor[0][1])
                     return False
             else:
-                print("ERRROOO id não declarado", exists_id_atributor[1])
+                errormessage =  "variavel '"+ token[1] +"' não declarada previamente" 
+                self.printErro( errormessage,  token[2])
                 return False
 
 
 
     def printErro(self, error, row, color_one = '\x1b[1;37;41m', color_two = '\x1b[0m'):
         self.erro = self.erro + 1
-        #print(color_one, error, "       problema na linha ", row, color_two)
+        print(color_one, error, "       problema na linha ", row, color_two)
