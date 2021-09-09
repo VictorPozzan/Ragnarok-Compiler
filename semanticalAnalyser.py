@@ -3,10 +3,12 @@ class Semantic_Analyser:
     tokens = []
     tokens_deep = []
     list_var = []
+    erro = 0
 
     def __init__(self, tokens):
         self.tokens = tokens
         self.count = 0
+        self.erro = 0
     
     def analyse(self):
         print("init semantic analyser")
@@ -27,6 +29,8 @@ class Semantic_Analyser:
         #verificar condicoes de if
         #verificar condicoes de while
         self.verify_statements()
+
+        return self.erro, self.tokens_deep
 
     def insert_deep_structure(self):
         list_count_id = []
@@ -194,5 +198,5 @@ class Semantic_Analyser:
 
 
     def printErro(self, error, row, color_one = '\x1b[1;37;41m', color_two = '\x1b[0m'):
-        a = 0
+        self.erro = self.erro + 1
         #print(color_one, error, "       problema na linha ", row, color_two)
