@@ -18,14 +18,14 @@ class Semantic_Analyser:
         #construct the variable table
         self.construct_variable_table()
 
-        #verificar variaveis inuteis
-        self.useless_var()
-
         #verificar atribuicoes
         self.verify_assignments()
         
         #verificar condicoes de if e verificar condicoes de while
         self.verify_statements()
+
+        #verificar variaveis inuteis
+        self.useless_var()
 
         return self.erro, self.tokens_deep
 
