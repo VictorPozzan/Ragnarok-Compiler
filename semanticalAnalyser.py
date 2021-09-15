@@ -119,7 +119,7 @@ class Semantic_Analyser:
             type_receiver = receiver[0]
 
         if flag == True:
-            if type_receiver == type_attributor[0]:
+            if type_receiver == type_attributor[0]: 
                 return
             else:
                 errormessage =  "variaveis incompativeis, entre '"+ type_receiver + "' e '" + type_attributor[0] 

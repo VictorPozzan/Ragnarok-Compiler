@@ -1,11 +1,14 @@
 meioa {
 	allr a;
-    allr a;
-    ef (c == a){
-        aundan y;
-        allr t;
-        t = d;
+    allr b; 
+    rita(b);
+    lesa(b);    
+
+    ef (a == 1){
+        a = 2 + a;
+    } ella {
+        a = b - a;
     }
-    fljota b; 
+
 }
 

@@ -1,0 +1,54 @@
+Program { 
+	body: [ 
+		VariableDeclaration { 
+			type: INT
+			name: a
+		}, 
+		VariableDeclaration { 
+			type: INT
+			name: b
+		}, 
+		InputOutputDeclaration { 
+			type: PRINT
+			id: b
+		}, 
+		InputOutputDeclaration { 
+			type: SCAN
+			id: b
+		}, 
+		ExpressionStatement { 
+			AssignmentExpression { 
+				operator : =
+				left : Indentifier {
+					name : a
+				}, 
+				right : BinaryExpression { 
+					left : Literal {
+						value : 2
+					}, 
+					operator : +
+					right : Literal {
+						value : 5
+					}, 
+				}
+			}, 
+		}, 
+		ExpressionStatement { 
+			AssignmentExpression { 
+				operator : =
+				left : Indentifier {
+					name : a
+				}, 
+				right : BinaryExpression { 
+					left : Identifier {
+						name : b
+					}, 
+					operator : -
+					right : Identifier {
+						name : b
+					}, 
+				}
+			}, 
+		}, 
+	] 
+}
