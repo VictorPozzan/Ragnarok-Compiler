@@ -6,15 +6,7 @@ Program {
 		}, 
 		VariableDeclaration { 
 			type: INT
-			name: b
-		}, 
-		InputOutputDeclaration { 
-			type: PRINT
-			id: b
-		}, 
-		InputOutputDeclaration { 
-			type: SCAN
-			id: b
+			name: c
 		}, 
 		ExpressionStatement { 
 			AssignmentExpression { 
@@ -22,33 +14,48 @@ Program {
 				left : Indentifier {
 					name : a
 				}, 
-				right : BinaryExpression { 
-					left : Literal {
-						value : 2
-					}, 
-					operator : +
-					right : Literal {
-						value : 5
-					}, 
-				}
+				right : Literal {
+					value : 2
+				}, 
 			}, 
 		}, 
 		ExpressionStatement { 
 			AssignmentExpression { 
 				operator : =
 				left : Indentifier {
-					name : a
+					name : c
 				}, 
-				right : BinaryExpression { 
-					left : Identifier {
-						name : b
-					}, 
-					operator : -
-					right : Identifier {
-						name : b
-					}, 
-				}
+				right : Literal {
+					value : 3
+				}, 
 			}, 
 		}, 
+		WhileStatement { 
+			condition:  LogicalExpression { 
+				left:  BinaryExpression { 
+					left: Identifier {
+						name: c
+					}
+					operator: <
+					right: Identifier {
+						name: a
+					}
+				}
+				operator: &
+				right:  BinaryExpression { 
+					left: Identifier {
+						name: c
+					}
+					operator: >
+					right: Literal {
+						value: 4
+					}
+				}
+			},
+			body: BlockStatement {
+				body: [
+				]
+			}
+		}
 	] 
 }

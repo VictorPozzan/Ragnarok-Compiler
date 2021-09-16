@@ -30,7 +30,14 @@ class AbstractSintaxTree:
             if token[0] == '{ID}' and next_token[0] == '{=}':
                 self.expressionStatement(file, token, i, tab)
             
-            #if token[0] == '{WHILE}':
+            if token[0] == '{WHILE}':
+                self.whileStatemente(file, token, i, tab)
+                tab = tab + 3
+
+            if token[0] == '{}}' and i !=  len(self.tokens) - 1:
+                tab = tab - 3
+                self.closeBody(file, token, i, tab)
+
             #if token[0] == '{IF}':
             #if token[0] == '{ELSE}'    
 
@@ -39,6 +46,77 @@ class AbstractSintaxTree:
         file.write((tab * "\t") + "] \n" )
         file.write("}")
         file.close()
+
+    def whileStatemente(self, file, token, i, tab):
+        file.write(((tab+1)*"\t") + "WhileStatement { \n")
+        self.condition(file, token, i, tab)
+        file.write(((tab+2)*"\t") + "},\n")
+        file.write(((tab+2)*"\t") + "body: BlockStatement {\n")
+        file.write(((tab+3)*"\t") + "body: [\n")
+
+    def condition(self, file, token, i, tab):
+        i = i+1
+        print(self.tokens[i+1][0])
+        if self.tokens[i+1][0] == '{NOT}':
+            file.write(((tab+2)*"\t") + "condition:  UnaryExpression { \n")
+            file.write(((tab+3)*"\t") + "operator: !\n")
+            file.write(((tab+3)*"\t") + "argument: Identifier {\n")
+            file.write(((tab+4)*"\t") + "name: "+ self.tokens[i+2][1] +"\n")
+            file.write(((tab+3)*"\t") + "}\n")
+
+        
+        elif self.tokens[i+4][0] == '{)}':
+            file.write(((tab+2)*"\t") + "condition:  BinaryExpression { \n")
+            type_one, type_two = self.getType(self.tokens[i+1])
+            file.write(((tab+3)*"\t") + "left: " + type_one + " {\n")
+            file.write(((tab+4)*"\t") + type_two + ": " + self.tokens[i+1][1] +"\n")
+            file.write(((tab+3)*"\t") + "}\n")
+            file.write(((tab+3)*"\t") + "operator: " + self.tokens[i+2][1] + "\n")
+            type_one, type_two = self.getType(self.tokens[i+3])
+            file.write(((tab+3)*"\t") + "right: " + type_one + " {\n")
+            file.write(((tab+4)*"\t") + type_two + ": " +  self.tokens[i+3][1] +"\n")
+            file.write(((tab+3)*"\t") + "}\n")
+
+        else:
+            file.write(((tab+2)*"\t") + "condition:  LogicalExpression { \n")
+
+            file.write(((tab+3)*"\t") + "left:  BinaryExpression { \n")
+            type_one, type_two = self.getType(self.tokens[i+1])
+            file.write(((tab+4)*"\t") + "left: " + type_one + " {\n")
+            file.write(((tab+5)*"\t") + type_two + ": " +  self.tokens[i+1][1] +"\n")
+            file.write(((tab+4)*"\t") + "}\n")
+            file.write(((tab+4)*"\t") + "operator: " + self.tokens[i+2][1] + "\n")
+            type_one, type_two = self.getType(self.tokens[i+3])
+            file.write(((tab+4)*"\t") + "right: " + type_one + " {\n")
+            file.write(((tab+5)*"\t") + type_two + ": " +  self.tokens[i+3][1] +"\n")
+            file.write(((tab+4)*"\t") + "}\n")
+            file.write(((tab+3)*"\t") + "}\n")
+            
+            file.write(((tab+3)*"\t") + "operator: " + self.tokens[i+4][1] + "\n")
+
+            file.write(((tab+3)*"\t") + "right:  BinaryExpression { \n")
+            type_one, type_two = self.getType(self.tokens[i+5])
+            file.write(((tab+4)*"\t") + "left: " + type_one + " {\n")
+            file.write(((tab+5)*"\t") + type_two + ": " +  self.tokens[i+5][1] +"\n")
+            file.write(((tab+4)*"\t") + "}\n")
+            file.write(((tab+4)*"\t") + "operator: " + self.tokens[i+6][1] + "\n")
+            type_one, type_two = self.getType(self.tokens[i+7])
+            file.write(((tab+4)*"\t") + "right: " + type_one + " {\n")
+            file.write(((tab+5)*"\t") + type_two + ": " +  self.tokens[i+7][1] +"\n")
+            file.write(((tab+4)*"\t") + "}\n")
+            file.write(((tab+3)*"\t") + "}\n")
+
+
+
+
+
+            
+
+    def closeBody(self, file, token, i, tab):
+        file.write(((tab+3)*"\t") + "]\n")
+        file.write(((tab+2)*"\t") + "}\n")
+        file.write(((tab+1)*"\t") + "}\n")
+
 
     def expressionStatement(self, file, token, i, tab):
         #verificar se é uma expressão simples a = b ou a = 1

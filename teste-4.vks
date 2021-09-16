@@ -1,14 +1,9 @@
 meioa {
 	allr a;
-    allr b; 
-    rita(b);
-    lesa(b);    
-
-    ef (a == 1){
-        a = 2 + a;
-    } ella {
-        a = b - a;
+    allr c;
+    a = 2;
+    c = 3;
+    stund (c < a & c > 4){
     }
-
 }
 
