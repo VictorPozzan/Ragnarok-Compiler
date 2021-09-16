@@ -30,30 +30,139 @@ Program {
 				}, 
 			}, 
 		}, 
-		WhileStatement { 
-			condition:  LogicalExpression { 
-				left:  BinaryExpression { 
-					left: Identifier {
-						name: c
-					}
-					operator: <
-					right: Identifier {
-						name: a
-					}
+		IfStatement { 
+			condition:  BinaryExpression { 
+				left: Identifier {
+					name: a
 				}
-				operator: &
-				right:  BinaryExpression { 
-					left: Identifier {
-						name: c
-					}
-					operator: >
-					right: Literal {
-						value: 4
-					}
+				operator: >
+				right: Identifier {
+					name: c
 				}
 			},
 			body: BlockStatement {
 				body: [
+					IfStatement { 
+						condition:  LogicalExpression { 
+							left:  BinaryExpression { 
+								left: Identifier {
+									name: c
+								}
+								operator: >
+								right: Literal {
+									value: 1
+								}
+							}
+							operator: |
+							right:  BinaryExpression { 
+								left: Identifier {
+									name: c
+								}
+								operator: <
+								right: Literal {
+									value: 0
+								}
+							}
+						},
+						body: BlockStatement {
+							body: [
+							]
+						}
+					}
+				]
+			}
+		}
+		ElseStatement { 
+			body: BlockStatement {
+				body: [
+					ExpressionStatement { 
+						AssignmentExpression { 
+							operator : =
+							left : Indentifier {
+								name : a
+							}, 
+							right : Literal {
+								value : 3
+							}, 
+						}, 
+					}, 
+					IfStatement { 
+						condition:  BinaryExpression { 
+							left: Identifier {
+								name: a
+							}
+							operator: >
+							right: Literal {
+								value: 8
+							}
+						},
+						body: BlockStatement {
+							body: [
+								WhileStatement { 
+									condition:  BinaryExpression { 
+										left: Identifier {
+											name: c
+										}
+										operator: >
+										right: Literal {
+											value: 0
+										}
+									},
+									body: BlockStatement {
+										body: [
+											ExpressionStatement { 
+												AssignmentExpression { 
+													operator : =
+													left : Indentifier {
+														name : c
+													}, 
+													right : Literal {
+														value : 9
+													}, 
+												}, 
+											}, 
+											IfStatement { 
+												condition:  BinaryExpression { 
+													left: Identifier {
+														name: a
+													}
+													operator: ==
+													right: Literal {
+														value: 0
+													}
+												},
+												body: BlockStatement {
+													body: [
+														ExpressionStatement { 
+															AssignmentExpression { 
+																operator : =
+																left : Indentifier {
+																	name : a
+																}, 
+																right : Literal {
+																	value : 4
+																}, 
+															}, 
+														}, 
+													]
+												}
+											}
+											ElseStatement { 
+												body: BlockStatement {
+													body: [
+														VariableDeclaration { 
+															type: FLOAT
+															name: h
+														}, 
+													]
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					}
 				]
 			}
 		}

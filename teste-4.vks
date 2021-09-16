@@ -3,7 +3,22 @@ meioa {
     allr c;
     a = 2;
     c = 3;
-    stund (c < a & c > 4){
+    ef(a>c){
+        ef(c > 1 | c < 0){
+
+        }
+    }ella{
+        a=3;
+        ef(a>8){
+            stund(c>0){
+                c = 9;
+                ef(a==0){
+                a=4;   
+                }ella{
+                    fljota h;
+                }
+            }
+        }
     }
 }
 

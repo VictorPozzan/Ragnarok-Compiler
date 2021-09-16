@@ -34,18 +34,36 @@ class AbstractSintaxTree:
                 self.whileStatemente(file, token, i, tab)
                 tab = tab + 3
 
+            if token[0] == '{IF}':
+                self.ifStatement(file, token, i, tab)
+                tab = tab + 3
+            
+            if token[0] == '{ELSE}':    
+                self.elseStatement(file, token, i, tab)
+                tab = tab + 3
+
             if token[0] == '{}}' and i !=  len(self.tokens) - 1:
                 tab = tab - 3
                 self.closeBody(file, token, i, tab)
 
-            #if token[0] == '{IF}':
-            #if token[0] == '{ELSE}'    
 
 
 
         file.write((tab * "\t") + "] \n" )
         file.write("}")
         file.close()
+
+    def ifStatement(self, file, token, i, tab):
+        file.write(((tab+1)*"\t") + "IfStatement { \n")
+        self.condition(file, token, i, tab)
+        file.write(((tab+2)*"\t") + "},\n")
+        file.write(((tab+2)*"\t") + "body: BlockStatement {\n")
+        file.write(((tab+3)*"\t") + "body: [\n")   
+
+    def elseStatement(self, file, token, i, tab):
+        file.write(((tab+1)*"\t") + "ElseStatement { \n")
+        file.write(((tab+2)*"\t") + "body: BlockStatement {\n")
+        file.write(((tab+3)*"\t") + "body: [\n")  
 
     def whileStatemente(self, file, token, i, tab):
         file.write(((tab+1)*"\t") + "WhileStatement { \n")
@@ -56,7 +74,7 @@ class AbstractSintaxTree:
 
     def condition(self, file, token, i, tab):
         i = i+1
-        print(self.tokens[i+1][0])
+
         if self.tokens[i+1][0] == '{NOT}':
             file.write(((tab+2)*"\t") + "condition:  UnaryExpression { \n")
             file.write(((tab+3)*"\t") + "operator: !\n")
@@ -106,11 +124,6 @@ class AbstractSintaxTree:
             file.write(((tab+4)*"\t") + "}\n")
             file.write(((tab+3)*"\t") + "}\n")
 
-
-
-
-
-            
 
     def closeBody(self, file, token, i, tab):
         file.write(((tab+3)*"\t") + "]\n")
